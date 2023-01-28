@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RecordTab extends StatelessWidget {
-  const RecordTab({super.key});
+class RecordMemoriaTab extends StatelessWidget {
+  const RecordMemoriaTab({super.key});
 
   @override
   Widget build(BuildContext context) {

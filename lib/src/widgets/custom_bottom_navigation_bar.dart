@@ -20,7 +20,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Icon(Icons.manage_history_sharp),
               label: 'Historial memoria'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.recommend_sharp), label: 'Records'),
+              icon: Icon(Icons.recent_actors_rounded),
+              label: 'Records reflejos'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.record_voice_over_sharp),
+              label: 'Records memoria'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_pin_circle_sharp), label: 'Perfil')
         ]);

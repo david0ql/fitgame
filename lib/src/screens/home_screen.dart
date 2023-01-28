@@ -2,7 +2,8 @@ import 'package:fitgame/src/providers/bottom_service.dart';
 import 'package:fitgame/src/screens/core/historial_memoria_tab.dart';
 import 'package:fitgame/src/screens/core/historial_reflejos_tab.dart';
 import 'package:fitgame/src/screens/core/perfil_tab.dart';
-import 'package:fitgame/src/screens/core/records_tab.dart';
+import 'package:fitgame/src/screens/core/records_reflejos_tab.dart';
+import 'package:fitgame/src/screens/core/recors_memoria_tab.dart';
 import 'package:fitgame/src/widgets/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -53,8 +54,10 @@ class HomeSwitch extends StatelessWidget {
       case 1:
         return const MemoriaTab();
       case 2:
-        return const RecordTab();
+        return const RecordReflejosTab();
       case 3:
+        return const RecordMemoriaTab();
+      case 4:
         return const PerfilTab();
       default:
         return const ReflejosTab();
