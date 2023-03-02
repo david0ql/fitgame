@@ -1,3 +1,4 @@
+import 'package:fitgame/src/security/security_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,8 +13,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      Navigator.pushReplacementNamed(context, 'home');
+    Future.delayed(const Duration(milliseconds: 1000), () async {
+      (await SecurityStorage.read('email') == "")
+          ? Navigator.pushReplacementNamed(context, 'login')
+          : Navigator.pushReplacementNamed(context, 'home');
     });
   }
 

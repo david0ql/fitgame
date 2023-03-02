@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fitgame',
-      initialRoute: 'home',
+      initialRoute: 'splash',
       routes: MyRouter.routes,
       theme: MyTheme.myTheme,
     );

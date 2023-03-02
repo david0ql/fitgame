@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
+import 'package:fitgame/src/security/security_storage.dart';
 import 'package:fitgame/src/theme/theme.dart';
 import 'package:fitgame/src/widgets/custom_button.dart';
 import 'package:fitgame/src/widgets/custom_input_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -54,30 +59,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             obscure: true,
                             textEditingController: textFormFieldPwd),
                         CustomButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await login(
+                                textFormFieldEmail.text, textFormFieldPwd.text);
+                          },
                           button: 'Iniciar sesión',
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text("¿No tienes cuenta?"),
-                            const SizedBox(
-                              width: 6,
-                            ),
-                            CupertinoButton(
-                              onPressed: () {
-                                print("object");
-                              },
-                              padding: const EdgeInsets.all(0),
-                              child: const Text(
-                                "Registrate",
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        )
                       ],
                     ),
                   ),
@@ -86,5 +73,33 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           )),
     );
+  }
+
+  Future<void> login(String usuario, String clave) async {
+    final headers = {'Content-Type': 'application/json'};
+    Map<String, String> body = {
+      "usuario": usuario,
+      "clave": clave,
+    };
+    String jsonBody = json.encode(body);
+    final httpRequest = await http.post(
+      Uri.https('fitgame.ga', '/login'),
+      body: jsonBody,
+      headers: headers,
+    );
+
+    final data = jsonDecode(httpRequest.body);
+
+    if (data.length.toString() == "1") {
+      await SecurityStorage.write("email", data[0]["correo"].toString());
+      Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Revisa tus credenciales"),
+        ),
+      );
+    }
   }
 }
